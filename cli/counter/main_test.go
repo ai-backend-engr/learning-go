@@ -9,35 +9,37 @@ import (
 func TestCountWordsWithBytes(t *testing.T) {
 	b := bytes.NewBufferString("word1 word2 word3\n")
 
-	expWC := 3
-	expBC := 0
-	expBC2 := len(b.String())
+	expected := 3
 
-	resWC, resBC := count(b, false, false)
-	_, resBC2 := count(b, false, true)
+	result := count(b, false, false)
 
-	if resWC != expWC {
-		t.Errorf("Expected %d, got %d instead.\n", expWC, resWC)
-	}
-
-	if resBC != expBC {
-		t.Errorf("Expected %d, got %d instead.\n", expBC, resBC)
-	}
-
-	if resBC2 != expBC2 {
-		t.Errorf("Expected %d, got %d instead \n", expBC2, resBC2)
+	if expected != result {
+		t.Errorf("Expected %d, got %d instead.\n", expected, result)
 	}
 }
 
 // TestCountLines tests the count function set to count lines
-// func TestCountLines(t *testing.T) {
-// 	b := bytes.NewBufferString("line1\nline2")
+func TestCountLines(t *testing.T) {
+	b := bytes.NewBufferString("line1\nline2")
 
-// 	exp := 2
+	expected := 2
 
-// 	res, _ := count(b, true, true)
+	result := count(b, true, false)
 
-// 	if res != exp {
-// 		t.Errorf("Expected %d, got %d instead.\n", exp, res)
-// 	}
-// }
+	if result != expected {
+		t.Errorf("Expected %d, got %d instead.\n", expected, result)
+	}
+}
+
+// TestCountBytes tests the count function set to count bytes
+func TestCountBytes(t *testing.T) {
+	b := bytes.NewBufferString("line1\nline2")
+
+	expected := b.Len()
+
+	result := count(b, false, true)
+
+	if result != expected {
+		t.Errorf("Expected %d, got %d instead.\n", expected, result)
+	}
+}
